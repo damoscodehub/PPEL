@@ -1,0 +1,25 @@
+{
+  "manifestVersion": 5,
+  "id": "com.premiere.extensionlauncher.uxpbridge",
+  "name": "Premiere Extension Launcher UXP Bridge",
+  "version": "1.0.0",
+  "main": "index.js",
+  "host": {
+    "app": "premierepro",
+    "minVersion": "25.6.0"
+  },
+  "hostUIContext": {
+    "hideFromMenu": true
+  },
+  "requiredPermissions": {
+    "ipc": {
+      "enablePluginCommunication": true
+    },
+    "network": {
+      "domains": [
+        "http://127.0.0.1:17364"
+      ]
+    }
+  },
+  "entrypoints": []
+}

@@ -1,0 +1,10 @@
+# Build / packaging artifacts
+*.zxp
+*.zip
+filetree.txt
+
+# Local diagnostic extraction (temporary copies for debugging)
+uxp-bridge/extracted/
+
+# Local launcher runtime state (never part of the repo)
+*.flag

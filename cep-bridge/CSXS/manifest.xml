@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionManifest Version="7.0"
+ ExtensionBundleId="com.premiere.extensionlauncher.cepbridge"
+ ExtensionBundleVersion="1.0.0"
+ ExtensionBundleName="Premiere Extension Launcher CEP Bridge">
+ <ExtensionList>
+  <Extension Id="com.premiere.extensionlauncher.cepbridge" Version="1.0.0"/>
+ </ExtensionList>
+ <ExecutionEnvironment>
+  <HostList><Host Name="PPRO" Version="[25.6,99.0]"/></HostList>
+  <LocaleList><Locale Code="All"/></LocaleList>
+  <RequiredRuntimeList><RequiredRuntime Name="CSXS" Version="11.0"/></RequiredRuntimeList>
+ </ExecutionEnvironment>
+ <DispatchInfoList>
+  <Extension Id="com.premiere.extensionlauncher.cepbridge">
+   <DispatchInfo>
+    <Resources>
+     <MainPath>./index.html</MainPath>
+     <CEFCommandLine>
+      <Parameter>--enable-nodejs</Parameter>
+      <Parameter>--mixed-context</Parameter>
+     </CEFCommandLine>
+    </Resources>
+    <Lifecycle>
+     <AutoVisible>false</AutoVisible>
+     <StartOn><Event>com.adobe.csxs.events.ApplicationActivate</Event></StartOn>
+    </Lifecycle>
+    <UI><Type>Custom</Type><Geometry><Size><Width>1</Width><Height>1</Height></Size></Geometry></UI>
+   </DispatchInfo>
+  </Extension>
+ </DispatchInfoList>
+</ExtensionManifest>
