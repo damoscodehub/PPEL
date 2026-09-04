@@ -268,7 +268,7 @@ $timer.Add_Tick({
           Write-Log "Premiere absent for ${graceSeconds}s. Shutting down."
           try {
             $script:allowClose = $true
-            [Win32]::UnregisterHotKey($form.Handle, 1)
+            [void][Win32]::UnregisterHotKey($form.Handle, 1)
             $tray.Visible = $false
             $listener.Stop()
             [Windows.Forms.Application]::Exit()
@@ -299,11 +299,11 @@ $rootTlp.ColumnCount = 1
 $rootTlp.RowCount = 4
 $rootTlp.ColumnStyles.Clear()
 $rootTlp.RowStyles.Clear()
-$rootTlp.ColumnStyles.Add((New-Object Windows.Forms.ColumnStyle([Windows.Forms.SizeType]::Percent, 100)))
-$rootTlp.RowStyles.Add((New-Object Windows.Forms.RowStyle([Windows.Forms.SizeType]::Absolute, 36)))   # title bar
-$rootTlp.RowStyles.Add((New-Object Windows.Forms.RowStyle([Windows.Forms.SizeType]::Absolute, 48)))   # search row
-$rootTlp.RowStyles.Add((New-Object Windows.Forms.RowStyle([Windows.Forms.SizeType]::Percent, 100)))   # results
-$rootTlp.RowStyles.Add((New-Object Windows.Forms.RowStyle([Windows.Forms.SizeType]::Absolute, 26)))   # status
+[void]$rootTlp.ColumnStyles.Add((New-Object Windows.Forms.ColumnStyle([Windows.Forms.SizeType]::Percent, 100)))
+[void]$rootTlp.RowStyles.Add((New-Object Windows.Forms.RowStyle([Windows.Forms.SizeType]::Absolute, 36)))   # title bar
+[void]$rootTlp.RowStyles.Add((New-Object Windows.Forms.RowStyle([Windows.Forms.SizeType]::Absolute, 48)))   # search row
+[void]$rootTlp.RowStyles.Add((New-Object Windows.Forms.RowStyle([Windows.Forms.SizeType]::Percent, 100)))   # results
+[void]$rootTlp.RowStyles.Add((New-Object Windows.Forms.RowStyle([Windows.Forms.SizeType]::Absolute, 26)))   # status
 $form.Controls.Add($rootTlp)
 
 # === TITLE BAR (row 0,0) ===
@@ -504,12 +504,12 @@ $combo.Add_TextChanged({
 })
 $combo.Add_KeyDown({
   if ($_.KeyCode -eq "Down") {
-    $list.Focus()
+    [void]$list.Focus()
     if ($list.Items.Count) { $list.SelectedIndex = [Math]::Min($list.SelectedIndex + 1, $list.Items.Count - 1) }
     $_.SuppressKeyPress = $true
   }
   elseif ($_.KeyCode -eq "Up") {
-    $list.Focus()
+    [void]$list.Focus()
     if ($list.Items.Count -and $list.SelectedIndex -gt 0) { $list.SelectedIndex = $list.SelectedIndex - 1 }
     $_.SuppressKeyPress = $true
   }
@@ -534,7 +534,7 @@ $list.Add_KeyDown({
   }
   elseif ($_.KeyCode -eq "Escape") { Write-DebugLog "ListBox Escape -> hide"; $form.Hide() }
   elseif ($_.KeyCode -eq "Back") {
-    $combo.Focus()
+    [void][void]$combo.Focus()
     if ($combo.Text.Length) { $combo.Text = $combo.Text.Substring(0, $combo.Text.Length - 1) }
     $_.SuppressKeyPress = $true
   }
@@ -715,7 +715,7 @@ $openTimer = New-Object Windows.Forms.Timer; $openTimer.Interval = 100
 $openTimer.Add_Tick({ if ($script:DoOpen) { $script:DoOpen = $false; Open-Selected } })
 $openTimer.Start()
 
-$combo.Focus()
+[void]$combo.Focus()
 
 # === HOTKEY: Ctrl+Shift+Alt+E ===
 $hk = New-Object HotKeyWindow
@@ -730,10 +730,10 @@ if (-not [Win32]::RegisterHotKey($hk.Handle, $hotkeyId, 0x0007, 0x45)) {
 $function:ShowLauncher = {
   if ($form.WindowState -eq "Minimized") { $form.WindowState = "Normal" }
   $form.Show()
-  $form.Activate()
+  [void]$form.Activate()
   $form.BringToFront()
   $combo.Show()
-  $combo.Focus()
+  [void]$combo.Focus()
   $combo.SelectionStart = $combo.Text.Length; $combo.SelectionLength = 0
   Refresh-List
 }
@@ -780,7 +780,7 @@ $form.Add_Deactivate({
 $form.Add_Shown({
   if (-not $script:formShown) {
     $script:formShown = $true
-    $combo.Focus()
+    [void]$combo.Focus()
     $combo.SelectionStart = 0; $combo.SelectionLength = $combo.Text.Length
     Refresh-List
     # Part 4: log actual control bounds after the first layout pass
